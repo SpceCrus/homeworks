@@ -1,4 +1,3 @@
-// src/main/java/pages/PaymentBlockPage.java
 package pages;
 
 import org.openqa.selenium.By;
