@@ -43,6 +43,10 @@ public class PaymentBlockPage extends BasePage {
 
     private final By widgetPaySystemsIcons = By.cssSelector("img[alt*='VISA'], img[alt*='Visa'], img[src*='visa'], img[alt*='Master'], img[src*='master'], img[alt*='МИР'], img[alt*='MIR'], img[src*='mir']");
     private final By widgetAnyLogosFallback = By.cssSelector(".icons-container img, .pay-systems img, .card-input__icons img, img");
+    private final By widgetPayButton = By.xpath(
+            "//button[contains(normalize-space(.),'Оплат') or contains(normalize-space(.),'Продолж')]"
+    );
+
 
     public PaymentBlockPage(WebDriver driver) {
         super(driver);
@@ -113,7 +117,6 @@ public class PaymentBlockPage extends BasePage {
         return attr(instalmentScore, "placeholder");
     }
 
-    // --- Домашний интернет ---
     public String getInternetPhonePlaceholder() {
         return attr(internetPhone, "placeholder");
     }
@@ -126,10 +129,19 @@ public class PaymentBlockPage extends BasePage {
         return attr(internetEmail, "placeholder");
     }
 
-    // --- Задолженность ---
     public String getDebtScorePlaceholder() {
         return attr(debtScore, "placeholder");
     }
+
+    public String getWidgetPayButtonText() {
+        switchToWidget();
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(widgetPayButton)).getText().trim();
+        } finally {
+            driver.switchTo().defaultContent();
+        }
+    }
+
 
     public PaymentBlockPage fillConnection(String phoneWithout375, String amount, String email) {
         dismissCookiesIfPresent();

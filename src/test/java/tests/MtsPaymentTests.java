@@ -1,6 +1,5 @@
-package test;
+package tests;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -99,6 +98,10 @@ public class MtsPaymentTests {
                 .openConnection()
                 .fillConnection("297777777", "10", "test@test.com")
                 .submitConnection();
+        String btnText = pay.getWidgetPayButtonText();
+        assertTrue(btnText.contains("10") || btnText.contains("10.00"),
+                "На кнопке виджета должна быть сумма (10 / 10.00). Текст кнопки: " + btnText);
+
 
         String amount = pay.getPaymentAmountTextFromWidget();
         assertTrue(amount.contains("10") || amount.contains("10.00"));
