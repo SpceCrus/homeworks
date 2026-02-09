@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import io.qameta.allure.Step;
 
 import java.util.List;
 
@@ -73,26 +74,26 @@ public class PaymentBlockPage extends BasePage {
         }
         throw new IllegalStateException("Option not found: " + text);
     }
-
+    @Step("Выбрать оплату: Услуги связи")
     public PaymentBlockPage openConnection() {
         chooseFromDropdown("Услуги связи");
         wait.until(ExpectedConditions.presenceOfElementLocated(formConnection));
         return this;
     }
-
+    @Step("Выбрать оплату: Домашний интернет")
     public PaymentBlockPage openInternet() {
         chooseFromDropdown("Домашний интернет");
         wait.until(ExpectedConditions.presenceOfElementLocated(formInternet));
         return this;
     }
-
+    @Step("Выбрать оплату: Рассрочка")
     public PaymentBlockPage openInstalment() {
         chooseFromDropdown("Рассрочка");
         wait.until(ExpectedConditions.presenceOfElementLocated(formInstalment));
         wait.until(ExpectedConditions.presenceOfElementLocated(instalmentScore));
         return this;
     }
-
+    @Step("Выбрать: Задолженность")
     public PaymentBlockPage openDebt() {
         chooseFromDropdown("Задолженность");
         wait.until(ExpectedConditions.presenceOfElementLocated(formDebt));
@@ -141,7 +142,7 @@ public class PaymentBlockPage extends BasePage {
         }
     }
 
-
+    @Step("Заполнить форму «Услуги связи»: телефон={phoneWithout375}, сумма={amount}, email={email}")
     public PaymentBlockPage fillConnection(String phoneWithout375, String amount, String email) {
         dismissCookiesIfPresent();
         type(connectionPhone, phoneWithout375);
@@ -149,7 +150,7 @@ public class PaymentBlockPage extends BasePage {
         type(connectionEmail, email);
         return this;
     }
-
+    @Step("Нажать кнопку оплаты в форме «Услуги связи»")
     public PaymentBlockPage submitConnection() {
         dismissCookiesIfPresent();
         safeClick(connectionSubmit);

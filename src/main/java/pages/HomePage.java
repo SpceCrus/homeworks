@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import io.qameta.allure.Step;
 
 public class HomePage extends BasePage {
 
@@ -17,6 +18,7 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
+    @Step("Открыть главную страницу MTS")
     public HomePage open() {
         driver.get(URL);
         wait.until(d -> d.findElement(paySection).isDisplayed());
@@ -32,11 +34,12 @@ public class HomePage extends BasePage {
         return driver.findElements(paymentSystemLogos).size() > 0;
     }
 
+    @Step("Открыть ссылку «Подробнее о сервисе»")
     public HomePage openMoreAboutService() {
         safeClick(moreAboutServiceLink);
         return this;
     }
-
+    @Step("Открыть блок оплаты")
     public PaymentBlockPage openPaymentBlock() {
         return new PaymentBlockPage(driver);
     }
